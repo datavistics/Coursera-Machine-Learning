@@ -16,7 +16,9 @@ J = 0;
 
 h_t = X * theta;
 
-J = 1/(2*m) .* dot((h_t' - y), (h_t' - y))'
+diff = h_t - y;
+
+J = 1/(2*m) .* dot(diff, diff);
 
 
 
