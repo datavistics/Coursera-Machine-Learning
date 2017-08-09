@@ -18,8 +18,19 @@ grad = zeros(size(theta));
 %               derivatives of the cost w.r.t. each parameter in theta
 
 
+h_th = sigmoid(X*theta);
+
+% This is where the magic happens. I set the theta_0 term to 0 so that
+% we dont have a lambda term for theta_0
+
+scale = lambda * ones(length(theta), 1);;
+scale(1) = 0;
+l_term = dot(.5/m * scale .* theta, theta);
+
+J = 1/m * (dot(-y , log(h_th)) - dot(( 1 - y) , log(1-h_th))) + l_term;
 
 
+grad = 1/m * X' * (h_th - y) + 1/m * scale .* theta;
 
 
 % =============================================================
