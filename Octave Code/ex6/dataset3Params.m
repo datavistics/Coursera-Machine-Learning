@@ -24,8 +24,24 @@ sigma = 0.3;
 %
 
 
+% This is not the best way, but its less frustration with octave
+to_beat = 1000000
 
-
+for C_test= [.01 .03 .1 .3 1 3 10 30]
+  for sigma_test= [.01 .03 .1 .3 1 3 10 30]
+    
+    printf("C = %d; sigma = %d", C_test , sigma_test)
+    model= svmTrain(X, y, C_test, @(x1, x2) gaussianKernel(x1, x2, sigma_test)); 
+    predictions = svmPredict(model, Xval);
+    result = mean(double(predictions ~= yval));
+    
+    if result < to_beat
+      to_beat = result;
+      C = C_test;
+      sigma = sigma_test;
+    endif
+  endfor
+endfor
 
 
 
