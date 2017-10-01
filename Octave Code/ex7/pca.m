@@ -22,7 +22,9 @@ S = zeros(n);
 
 
 
+cov_sig = 1/m * X' * X;
 
+[U, S, V] = svd(cov_sig);
 
 
 
